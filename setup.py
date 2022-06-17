@@ -20,7 +20,7 @@ setuptools.setup(
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),
     entry_points={
-        'console_scripts': ['gradescope-ace=src.main:main'],
+        'console_scripts': ['gradescope-ace=main:main'],
     },
     python_requires=">=3.6",
 )
