@@ -14,8 +14,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 
-# cli = sys.modules['flask.cli']
-# cli.show_server_banner = lambda *x: None
+cli = sys.modules['flask.cli']
+cli.show_server_banner = lambda *x: None
 
 
 def submit_assignment(url, driver=None):
@@ -27,8 +27,8 @@ def submit_assignment(url, driver=None):
 
 def new_server(driver):
     app = Flask(__name__)
-    # log = logging.getLogger('werkzeug')
-    # log.disabled = True
+    log = logging.getLogger('werkzeug')
+    log.disabled = True
 
     @app.route('/submit', methods=['GET', 'POST'])
     def result():
@@ -56,8 +56,9 @@ def init_session():
     driver = webdriver.Chrome()
     click.echo("Opening a new browser session...")
     driver.get("https://www.gradescope.com/")
+    driver.find_element(By.XPATH, "/html/body/div[1]/main/div[2]/div/header/nav/div[2]/span[3]/button").click()
     click.echo("Waiting for successful login 😊 ...")
-    new_server(driver)  # DELETE THIS LINE
+    # new_server(driver)  # DELETE THIS LINE
     try:
         WebDriverWait(driver, 100).until(
             expected_conditions.presence_of_element_located((By.CLASS_NAME, 'courseBox--shortname'))
@@ -65,7 +66,7 @@ def init_session():
         click.echo(fg.brightgreen("Successful login! 🎉🎉🎉"))
         click.echo("Open a new terminal tab and run gracescope-ace submit to submit your work!")
         click.echo(fg.yellow("To quit, press CTRL-C"))
-        # new_server(driver)
+        new_server(driver)
     except TimeoutException:
         click.echo(fg.red("Timeout ... took too long to login"))
     finally:
