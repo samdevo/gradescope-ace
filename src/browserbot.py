@@ -1,11 +1,8 @@
-import time
 import logging
-import multiprocessing
 import sys
-import time
-import requests
 
 import click
+import requests
 from ansi.colour import fg
 from flask import Flask, request
 from selenium import webdriver
