@@ -1,5 +1,6 @@
 import logging
 import sys
+import time
 
 import click
 import requests
@@ -20,6 +21,31 @@ def submit_assignment(url, driver=None):
         return
 
     driver.get(url)
+
+    resubmit_button = driver.find_element(By.XPATH, "/html/body/div[1]/main/section/ul/li[5]/button")
+    resubmit_button.click()
+
+    github_button = driver.find_element(By.XPATH, "/html/body/div[1]/dialog/div/div[2]/form/div[1]/div/div/span[2]")
+    github_button.click()
+
+    repo_dropdown = driver.find_element(By.XPATH, "/html/body/div[1]/dialog/div/div[2]/form/div[3]/div/div["
+                                                  "1]/div/div[1]")
+    repo_dropdown.click()
+    repo_dropdown.click()
+
+    selection = driver.find_element(By.XPATH, "/html/body/div[1]/dialog/div/div[2]/form/div[3]/div/div[1]/div/div["
+                                              "2]/ul/div/div/div[1]/div/li")
+    selection.click()
+
+    branch_dropdown = driver.find_element(By.XPATH, "/html/body/div[1]/dialog/div/div[2]/form/div[3]/div/div["
+                                                    "2]/div/div[1]")
+    branch_dropdown.click()
+
+    master_branch = driver.find_element(By.XPATH, "/html/body/div[1]/dialog/div/div[2]/form/div[3]/div/div["
+                                                  "2]/div/div[2]/ul/div/div/div/div/li/div")
+    master_branch.click()
+
+    time.sleep(10)
 
 
 def new_server(driver):
